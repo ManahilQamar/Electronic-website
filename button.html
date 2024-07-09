@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Animation</title>
+    <style>
+        body {
+            overflow: hidden; /* Hide scrollbars */
+            margin: 0; /* Remove default margin */
+        }
+        #road {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #6c7a89; /* Grey road */
+        }
+        #car {
+            position: absolute;
+            bottom: 20px; /* Position car near bottom */
+            left: -100px; /* Start car outside the left side */
+            width: 100px;
+            height: 50px;
+            background-color: #e74c3c; /* Red car */
+            border-radius: 10px;
+            transition: left 2s linear; /* Smooth movement */
+        }
+    </style>
+</head>
+<body>
+    <div id="road"></div>
+    <div id="car"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const car = document.getElementById('car');
+
+            function moveCar() {
+                const roadWidth = window.innerWidth;
+                const carWidth = car.offsetWidth;
+
+                // Calculate random position within road width
+                const newPosition = Math.random() * (roadWidth - carWidth);
+
+                // Move car to new position
+                car.style.left = newPosition + 'px';
+
+                // Repeat after a random time between 1 to 3 seconds
+                setTimeout(moveCar, Math.random() * 2000 + 1000);
+            }
+
+            moveCar(); // Start moving the car
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            align-items: center;
+            background: #322d2d;
+        }
+        body.active2 {
+            background-color: #fff;
+        }
+        #toggle-btn {
+            color: #0d0c0c;
+            position: relative;
+            background: #222;
+            width: 80px; /* Increased width to fit text */
+            height: 30px;
+            transition: 0.5s;
+            border-radius: 160px;
+            box-shadow: inset 0 8px 60px rgba(0, 0, 0, 0.1),
+                        inset 0 8px 8px rgba(0, 0, 0, 0.1),
+                        inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        #toggle-btn .circle {
+           
+            cursor: pointer;
+           
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        #toggle-btn.active .circle {
+            color: black;
+        }
+        #toggle-btn.active {
+            background: #fff;
+            box-shadow: inset 0 8px 60px rgba(0, 0, 0, 0.1),
+                        inset 0 8px 8px rgba(0, 0, 0, 0.1),
+                        inset 0 -4px 4px rgba(0, 0, 0, 0.1);
+        }
+        .mode-text {
+            position: relative;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="toggle-btn">
+        <span class="circle">Mode</span>
+        <span class="mode-text" id="mode-text">Light</span>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('toggle-btn');
+        const body = document.body;
+        const modeText = document.getElementById('mode-text');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('active');
+            body.classList.toggle('active2');
+
+            if (toggleBtn.classList.contains('active')) {
+                modeText.textContent = 'Dark';
+            } else {
+                modeText.textContent = 'Light';
+            }
+        });
+    </script>
+</body>
+</html>
