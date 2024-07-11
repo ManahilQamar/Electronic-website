@@ -11,12 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartItemsContainer = document.getElementById('cart-items');
 
   const products = [
-    { id: 1, name: "Laptop", price: 999, quantity: 5, category: "Electronics", image: "Apple.jpg" },
-    { id: 2, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "ip.jpg" },
-    { id: 3, name: "Book", price: 15, quantity: 0, category: "Books", image: "head.jpg" },
-    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head.jpg" },
+    { id: 9, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "iphone.jpg" },
+    { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath4.jpg" },
     { id: 5, name: "TV", price: 299, quantity: 3, category: "Electronics", image: "tv2.jpg" },
-    { id: 6, name: "Shampoo", price: 8, quantity: 20, category: "Beauty", image: "head4.jpg" }
+    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head.jpg" },
+    { id: 2, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "ip.jpg" },
+    { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath3.jpg" },
+    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head2.jpg" },
+    { id: 7, name: "Watch", price: 999, quantity: 50, category: "Electronics", image: "wat2.png" },
+    { id: 1, name: "Laptop", price: 999, quantity: 5, category: "Electronics", image: "Apple.jpg" },
+    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head3.jpg" },
+    { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wat.jpg" }
   ];
 
   function filterProducts(items) {

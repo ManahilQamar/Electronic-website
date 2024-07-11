@@ -74,6 +74,7 @@ body {
   }
   .dark-mode .navbar {
     background-color: black;
+    border: 1px solid black;
 
 
   }
@@ -111,6 +112,7 @@ body {
   }
   .dark-mode .nav-links{
     box-shadow: 0 15px 10px rgba(252, 249, 249, 0.1);
+    background-color: #0b0b0b;
 
   }
   #home1{
@@ -308,13 +310,20 @@ transition: top .4s;
 
   /* Add styles to hide the modal by default and for other elements */
 body.dark-mode {
-  background-color: #121212;
+  background-color: #0b0b0b;
   color: #0b0b0b;
 }
 
-.navbar.dark-mode,
+.navbar.dark-mode {
+  background-color: #0b0b0b;
+  box-shadow: 0 1px 16px hsla(0, 0%, 98%, 0.1);
+  border: 1px solid rgb(78, 78, 78);
+
+}
 .product.dark-mode {
-  background-color: #333;
+  background-color: #0b0b0b;
+  box-shadow: 0 1px 16px hsla(220, 8%, 93%, 0.1);
+
 }
 
 
