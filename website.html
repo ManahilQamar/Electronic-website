@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- box icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" href="wibsite.css">
+  <title>Product Filter</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <!-- Toggle Button -->
+    <div id="toggle-btn">
+      <i class="circle">Mode</i>
+      <span class="mode-text" id="mode-text">Light</span>
+    </div>
+    <div class="logo">ElectronicsZone</div>
+    <div class="icons">
+      <div class="bx bx-heart" id="heart-icon"></div>
+      <div class="bx bx-cart" id="cart-link"><span id="cart-count">0</span></div>
+      <div class="bx bx-search-alt-2" id="search-icon"></div>
+    </div>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+  <ul class="nav-links">
+    <li><a href="#home" id="home1">Home</a></li>
+    <li><a href="#about" id="home2">LAPTOPS</a></li>
+    <li><a href="#services" id="home2">TABLETS</a></li>
+    <li><a href="#contact" id="home2">MOBILES</a></li>
+    <li><a href="#contact" id="home2">COMPUTERS</a></li>
+    <li><a href="#contact" id="home2">PRINTER</a></li>
+    <li><a href="#contact" id="home2">ElECTRONICS</a></li>
+    <li><a href="#contact" id="home2">CAMERA</a></li>
+    <li><a href="#contact" id="home2">WATCHS</a></li>
+  </ul>
+   <!-- Product List -->
+   <div id="product-list"></div>
+  
+   <!-- Cart Modal  -->
+   <div id="cart-modal" class="modal">
+     <div class="modal-content">
+         <span class="close">&times;</span>
+         <h2 style="font-family: emoji;">Your Cart</span></h2>
+         <div id="cart-items"></div>
+         <div id="total-price" style="margin-top: 20px;"><strong>Total Price: $0.00</strong></div>
+         <button id="checkout">Checkout</button>
+     </div>
+   </div>
+   <script src="website.js"></script>
+</body>
+
+</html>
