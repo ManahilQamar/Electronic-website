@@ -24,38 +24,48 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wat.jpg" }
   ];
 
-  function filterProducts(items) {
-    return items.filter(product => product.price > 50 && product.quantity > 0);
+
+  const productName = document.getElementById('filterinput');
+  productName.addEventListener('input', (event) => {
+    const productNameValue = event.target.value;
+    const filteredProducts = filterProducts(products, productNameValue);
+    renderProducts(filteredProducts);
+  });
+
+  function filterProducts(items, filterValue) {
+    return items.filter(product => product.name.toLowerCase().includes(filterValue.toLowerCase()));
   }
 
-  const filteredProducts = filterProducts(products);
+  function renderProducts(products) {
+    productList.innerHTML = products.map(product =>
+      `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
+        <img src="${product.image}" alt="${product.name}">
+        <h2>${product.name}</h2>
+        <p>Price: $${product.price}</p>
+        <p>Quantity: ${product.quantity}</p>
+        <p>Category: ${product.category}</p>
+        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+      </div>`
+    ).join('');
+  }
 
-  productList.innerHTML = filteredProducts.map(product =>
-    `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
-      <img src="${product.image}" alt="${product.name}">
-      <h2>${product.name}</h2>
-      <p>Price: $${product.price}</p>
-      <p>Quantity: ${product.quantity}</p>
-      <p>Category: ${product.category}</p>
-      <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-    </div>`
-  ).join('');
+  renderProducts(products);
 
   let cart = [];
 
   function updateCartCount() {
-      cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
   }
 
   function updateCartModal() {
-      cartItemsContainer.innerHTML = '';
+    cartItemsContainer.innerHTML = '';
 
-      let totalPrice = 0;
+    let totalPrice = 0;
 
-      cart.forEach(item => {
-          const cartItem = document.createElement('div');
-          cartItem.classList.add('cart-item');
-          cartItem.innerHTML = `
+    cart.forEach(item => {
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
               <img src="${item.image}" alt="${item.name}" class="cart-item-image">
               <div class="item-details">
                   <p>${item.name}</p>
@@ -68,69 +78,69 @@ document.addEventListener('DOMContentLoaded', () => {
                   <button class="remove-from-cart" data-id="${item.id}">Remove</button>
               </div>
           `;
-          cartItemsContainer.appendChild(cartItem);
-          totalPrice += item.price * item.quantity;
-      });
+      cartItemsContainer.appendChild(cartItem);
+      totalPrice += item.price * item.quantity;
+    });
 
-      document.getElementById('total-price').innerHTML = `<strong>Total Price: $${totalPrice.toFixed(2)}</strong>`;
+    document.getElementById('total-price').innerHTML = `<strong>Total Price: $${totalPrice.toFixed(2)}</strong>`;
   }
 
   document.addEventListener('click', (event) => {
-      if (event.target.classList.contains('add-to-cart')) {
-          const productId = parseInt(event.target.dataset.id);
-          const product = products.find(p => p.id === productId);
-          const cartItem = cart.find(item => item.id === productId);
+    if (event.target.classList.contains('add-to-cart')) {
+      const productId = parseInt(event.target.dataset.id);
+      const product = products.find(p => p.id === productId);
+      const cartItem = cart.find(item => item.id === productId);
 
-          if (cartItem) {
-              cartItem.quantity++;
-          } else {
-              cart.push({ ...product, quantity: 1 });
-          }
-          updateCartCount();
-          updateCartModal();
+      if (cartItem) {
+        cartItem.quantity++;
+      } else {
+        cart.push({ ...product, quantity: 1 });
       }
+      updateCartCount();
+      updateCartModal();
+    }
 
-      if (event.target.classList.contains('remove-from-cart')) {
-          const productId = parseInt(event.target.dataset.id);
-          cart = cart.filter(item => item.id !== productId);
-          updateCartCount();
-          updateCartModal();
+    if (event.target.classList.contains('remove-from-cart')) {
+      const productId = parseInt(event.target.dataset.id);
+      cart = cart.filter(item => item.id !== productId);
+      updateCartCount();
+      updateCartModal();
+    }
+
+    if (event.target.classList.contains('decrease-quantity')) {
+      const productId = parseInt(event.target.dataset.id);
+      const cartItem = cart.find(item => item.id === productId);
+
+      if (cartItem.quantity > 1) {
+        cartItem.quantity--;
+      } else {
+        cart = cart.filter(item => item.id !== productId);
       }
+      updateCartCount();
+      updateCartModal();
+    }
 
-      if (event.target.classList.contains('decrease-quantity')) {
-          const productId = parseInt(event.target.dataset.id);
-          const cartItem = cart.find(item => item.id === productId);
-
-          if (cartItem.quantity > 1) {
-              cartItem.quantity--;
-          } else {
-              cart = cart.filter(item => item.id !== productId);
-          }
-          updateCartCount();
-          updateCartModal();
-      }
-
-      if (event.target.classList.contains('increase-quantity')) {
-          const productId = parseInt(event.target.dataset.id);
-          const cartItem = cart.find(item => item.id === productId);
-          cartItem.quantity++;
-          updateCartCount();
-          updateCartModal();
-      }
+    if (event.target.classList.contains('increase-quantity')) {
+      const productId = parseInt(event.target.dataset.id);
+      const cartItem = cart.find(item => item.id === productId);
+      cartItem.quantity++;
+      updateCartCount();
+      updateCartModal();
+    }
   });
 
   cartLink.onclick = function () {
-      cartModal.style.display = 'block';
+    cartModal.style.display = 'block';
   }
 
   closeModal.onclick = function () {
-      cartModal.style.display = 'none';
+    cartModal.style.display = 'none';
   }
 
   window.onclick = function (event) {
-      if (event.target === cartModal) {
-          cartModal.style.display = 'none';
-      }
+    if (event.target === cartModal) {
+      cartModal.style.display = 'none';
+    }
   }
 
   toggleBtn.addEventListener('click', () => {
@@ -154,3 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.classList.toggle('active');
   });
 });
+
+
+

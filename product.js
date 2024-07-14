@@ -20,10 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function filterProducts(items) {
-      return items.filter(product => product.price > 50 && product.quantity > 0);
+      return items.filter(product => product.name=="Laptop");
     }
 
     const filteredProducts = filterProducts(products);
+    console.log(filteredProducts ,"----------------------------")
 
     productList.innerHTML = filteredProducts.map(product =>
       `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
