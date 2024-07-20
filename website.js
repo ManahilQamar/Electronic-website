@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const products = [
     { id: 9, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "iphone.jpg" },
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath4.jpg" },
-    { id: 5, name: "TV", price: 299, quantity: 3, category: "Electronics", image: "tv2.jpg" },
-    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head.jpg" },
-    { id: 2, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "ip.jpg" },
+    { id: 5, name: "TV", price: 299, quantity: 3, category: "Electronics", image: "bgTv.png" },
+    { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "bgHead.png" },
+    { id: 2, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "ip.png" },
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath3.jpg" },
     { id: 4, name: "Headphones", price: 70, quantity: 15, category: "Electronics", image: "head2.jpg" },
     { id: 7, name: "Watch", price: 999, quantity: 50, category: "Electronics", image: "wat2.png" },
@@ -259,5 +259,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+let nextButton = document.getElementById('next');
+let prevButton = document.getElementById('prev');
+let backButton = document.getElementById('back');
+let searchMoreButtons = document.querySelectorAll('.searchMore');
+let carousel = document.querySelector('.carousel');
+let listHTML = document.querySelector('.carousel .list');
 
+nextButton.onclick = function () {
+  showSlider('next');
+}
 
+prevButton.onclick = function () {
+  showSlider('prev');
+}
+
+const showSlider = (type) => {
+  let items = document.querySelectorAll('.carousel .list .item');
+  if (type === 'next') {
+    listHTML.appendChild(items[0]);
+    carousel.classList.add('next');
+  } else {
+    listHTML.insertBefore(items[items.length - 1], items[0]);
+    carousel.classList.add('prev');
+  }
+}
