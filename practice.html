@@ -1,0 +1,223 @@
+ <!-- footer -->
+
+
+ <div class="navFooterBackToTopText">
+  <a href="#Backtotop">Back to top</a>
+</div>
+
+<div class="footer">
+
+  <div id="footer-widgets">
+    <div class="footer-sidebar footer-1">
+      <h4 class="widget-title">QUICK LINKS</h4>
+      <a href="https://fruitsabzi.pk/deals-of-the-day/">Deals of the day</a>
+      <a href="https://fruitsabzi.pk/product-category/bundle/">Bundles</a>
+      <a href="#dryfruit">Computers</a>
+      <a href="#chocolates">Laptops</a>
+      <a href="https://fruitsabzi.pk/product-category/dairy/">Smartphine</a>
+      <a href="">Ipads</a>
+      <box-icon name='phone'></box-icon>
+      <a href="https://wa.me/923181011811">
+        <i class="bx bx-phone"></i>
+
+        <span class="num">+92 318 1011811</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-sidebar footer-2">
+    <div id="nav_menu-2">
+      <h4 class="widget-title">ElectronicZone</h4>
+      <a href="">Term & Conditions</a>
+
+      <input type="email" name="EMAIL" class="Search" placeholder="Email Address" required="">
+      <input type="submit" class="submit" value="Subscribe">
+    </div>
+    <div class="social">
+      <a href=""><i class='bx bxl-facebook'> </i></a>
+      <a href=""><i class='bx bxl-twitter'> </i></a>
+      <a href=""><i class='bx bxl-instagram'> </i></a>
+      <a href=""><i class='bx bxl-youtube'> </i></a>
+      <a href=""><i class='bx bxl-linkedin'> </i></a>
+    </div>
+
+
+  </div>
+  <div class="footer-sidebar footer-3">
+    <div id="nav_menu-3">
+      <h4 class="widget-title">Reach Us</h4>
+      <a href="about.html">About Us</a>
+      <a href="contect.html">Contact</a>
+
+    </div>
+  </div>
+
+
+
+
+</div>
+</div>
+
+
+<div class="copyright">
+  <p>Copy-Right 2024 ElectronicZone</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer */
+
+.footer{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1rem, 4fr));
+  gap: 2rem;
+  background-color: #171a28;
+  height: 400px;
+  width: 100%;
+}
+
+.widget-title {
+  display: flex;
+  padding: 12px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.Subscribe {
+  display: inline;
+  padding: 0.5px;
+  margin-top: 0px;
+  font-size: 14px;
+  color: #fff;
+}
+.Subscribe h6{
+  margin-top: 20px;
+}
+.Search {
+  margin: 20px;
+  height: 34px;
+  position: relative;
+  right: 2.2rem;
+  border: 1px solid rgb(14, 9, 32);
+  border-radius: 5px;
+
+}
+
+.submit {
+  cursor: pointer;
+  height: 27px;
+  padding: 4px;
+  float: right;
+  border: none;
+  font-size: x-small;
+  position: relative;
+  bottom: -1.5rem;
+  right: 11rem;
+  background: rgb(14, 9, 32);
+  color: white;
+  border-radius: 5px;
+
+}
+
+/* Additional styles for links */
+.footer-sidebar a {
+  display: flex;
+  padding: 7px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-sidebar a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+.navFooterBackToTopText{
+  display: flex;
+  justify-content: center;
+  background: rgb(40, 38, 70);
+  padding: 10px;
+  cursor: pointer;
+}
+.navFooterBackToTopText a{
+  display: flex;
+  padding: 7px;
+  color: #fff;
+  text-decoration: none;
+}
+.navFooterBackToTopText :hover{
+ color: gainsboro;
+}
+#footer-widgets  .bx-phone {
+  
+  position: relative;
+  font-size: 30px;
+  top: 30px;
+}
+
+.num {
+  color: rgb(255, 252, 252);
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  position: relative;
+  top: 30px;
+  left: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  #footer-widgets {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .footer-sidebar {
+      max-width: 90%;
+      margin: 0 auto; /* Centers the widgets on smaller screens */
+  }
+}
+.social{
+display: flex;
+column-gap: 0.2rem;
+position: relative;
+right: 1em;
+
+}
+.social .bx{
+padding: 8px ;
+background: rgb(40, 38, 70);
+color:#fff;
+border-radius: 5rem;
+font-size: 18px;
+}
+.social .bx:hover{
+background: #fff;
+color: rgb(40, 38, 70);
+transition: 0.2s all linear;
+}
+.copyright{
+text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
