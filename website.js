@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const heartItemsContainer = document.getElementById('heart-items');
 
   const products = [
+  
     { id: 9, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "iphone.jpg" },
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath4.jpg" },
     { id: 5, name: "TV", price: 299, quantity: 3, category: "Electronics", image: "bgTv.png" },
@@ -39,19 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return items.filter(product => product.name.toLowerCase().includes(filterValue.toLowerCase()));
   }
 
-  function renderProducts2(products) {
-    searchList.innerHTML = products.map(product =>
-      `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
-        <img src="${product.image}" alt="${product.name}">
-        <h2>${product.name}</h2>
-        <p>Price: $${product.price}</p>
-        <p>Quantity: ${product.quantity}</p>
-        <p>Category: ${product.category}</p>
-        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
-        <div class="bx bx-heart add-to-heart" data-id="${product.id}"></div>
-      </div>`
-    ).join('');
-  }
+
 
   productList.innerHTML = products.map(product =>
     `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
@@ -60,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>Price: $${product.price}</p>
         <p>Quantity: ${product.quantity}</p>
         <p>Category: ${product.category}</p>
-        <button class="add-to-cart" data-id="${product.id}">Add to Cart</button>
+        <div class="bx bx-cart add-to-cart" data-id="${product.id}"></div>
         <div class="bx bx-heart add-to-heart" data-id="${product.id}"></div>
       </div>`
   ).join('');
@@ -256,9 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
 let nextButton = document.getElementById('next');
 let prevButton = document.getElementById('prev');
 let backButton = document.getElementById('back');
@@ -274,8 +260,14 @@ prevButton.onclick = function () {
   showSlider('prev');
 }
 
+let unAcceptClick;
 const showSlider = (type) => {
+  nextButton.style.pointerEvents = 'none';
+  prevButton.style.pointerEvents = 'none';
+  carousel.classList.remove('prev', 'next');
+
   let items = document.querySelectorAll('.carousel .list .item');
+
   if (type === 'next') {
     listHTML.appendChild(items[0]);
     carousel.classList.add('next');
@@ -283,4 +275,31 @@ const showSlider = (type) => {
     listHTML.insertBefore(items[items.length - 1], items[0]);
     carousel.classList.add('prev');
   }
+
+  setTimeout(() => {
+    carousel.classList.remove('next', 'prev');
+  }, 1100);
+
+  clearTimeout(unAcceptClick);
+  unAcceptClick = setTimeout(() => {
+    nextButton.style.pointerEvents = 'auto';
+    prevButton.style.pointerEvents = 'auto';
+  }, 2000);
 }
+
+searchMoreButtons.forEach(button => {
+  button.onclick = function() {
+    carousel.classList.add('showDetail');
+  }
+});
+
+backButton.onclick = function() {
+  carousel.classList.remove('showDetail');
+}
+
+
+
+
+
+
+
