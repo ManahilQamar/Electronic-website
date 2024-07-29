@@ -863,17 +863,97 @@ body.dark-mode {
   background-color: transparent;
   font-family: emoji;
 }
-.product-heading:after {
-  content: '';
-  display: block;
-  width: 20em; /* Width of the underline */
-  height: 2px; /* Height of the underline */
-  background-color: black; /* Color of the underline */
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -85px; /* Adjust this value if you want to move the line further from the text */
+
+
+
+
+/* Add this to your existing CSS */
+.popular-categories {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin: 20px 0;
 }
+
+.popular-categories h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: emoji;
+}
+
+#category-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.category {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  width: 130px;
+}
+
+.category-image {
+  width: 100px; /* Set the desired width */
+  height: 100px; /* Set the desired height */
+  object-fit: cover; /* This ensures that the image covers the container without distortion */
+}
+
+
+.category-name {
+  font-size: 18px;
+  margin: 10px 0;
+}
+#categoryListWrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+#categoryList {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.category {
+  flex: 0 0 150px;
+  margin: 10px;
+  text-align: center;
+}
+
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+#prevCategoryBtn{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-family: monospace;
+  font-size: large;
+  font-weight: bold;
+  border: 1px solid #555;
+}
+#nextCategoryBtn{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-family: monospace;
+  font-size: large;
+  font-weight: bold;
+  border: 1px solid #555;
+}
+
+
+
+
+
+
 
 
 

@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModal = document.querySelector('.close');
   const cartItemsContainer = document.getElementById('cart-items');
   const heartItemsContainer = document.getElementById('heart-items');
+  const categoryList = document.getElementById('category-list');
 
   const products = [
-  
     { id: 9, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "iphone.jpg" },
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath4.jpg" },
     { id: 5, name: "TV", price: 299, quantity: 3, category: "Electronics", image: "bgTv.png" },
@@ -40,8 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return items.filter(product => product.name.toLowerCase().includes(filterValue.toLowerCase()));
   }
 
-
-
   productList.innerHTML = products.map(product =>
     `<div class="product" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
         <img src="${product.image}" alt="${product.name}">
@@ -54,6 +52,72 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`
   ).join('');
 
+  const categories = [
+    { category: 'Laptops', image: 'laps1.jpg' },
+    { category: 'Tablets', image: 'laps.jpg' },
+    { category: 'Mobiles', image: 'jap1.jpg' },
+    { category: 'Computers', image: 'head4.jpg' },
+    { category: 'Printers', image: 'ips3.png' },
+    { category: 'Electronics', image: 'wath3.jpg' },
+    { category: 'Cameras', image: 'laps1.jpg' },
+    { category: 'Watches', image: 'laps.jpg' }
+  ];
+  
+  let currentIndex = 0;
+  const categoriesPerView = 4;
+  
+  const renderCategories = () => {
+    const categoryList = document.getElementById('categoryList');
+    categoryList.innerHTML = '';
+  
+    const uniqueCategories = [];
+    categories.forEach(product => {
+      if (!uniqueCategories.some(category => category.name === product.category)) {
+        uniqueCategories.push({ name: product.category, image: product.image });
+      }
+    });
+  
+    uniqueCategories.forEach(category => {
+      const categoryDiv = document.createElement('div');
+      categoryDiv.classList.add('category');
+  
+      categoryDiv.innerHTML = `
+        <img src="${category.image}" alt="${category.name}" class="category-image">
+        <h3 class="category-name">${category.name}</h3>
+      `;
+  
+      categoryList.appendChild(categoryDiv);
+    });
+  
+    updateCategoryView();
+  };
+  
+  const updateCategoryView = () => {
+    const categoryList = document.getElementById('categoryList');
+    const uniqueCategories = document.querySelectorAll('.category');
+    const maxIndex = uniqueCategories.length - categoriesPerView;
+  
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > maxIndex) currentIndex = maxIndex;
+  
+    const offset = -currentIndex * (uniqueCategories[0].clientWidth + 20); // Adjust 20 if needed for margin/padding
+    categoryList.style.transform = `translateX(${offset}px)`;
+  };
+  
+  document.getElementById('prevCategoryBtn').addEventListener('click', () => {
+    currentIndex--;
+    updateCategoryView();
+  });
+  
+  document.getElementById('nextCategoryBtn').addEventListener('click', () => {
+    currentIndex++;
+    updateCategoryView();
+  });
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCategories();
+  });
+  
   let cart = [];
   let likedItems = [];
 
@@ -240,66 +304,59 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.style.display = 'none';
     }
   });
-});
 
+  let nextButton = document.getElementById('next');
+  let prevButton = document.getElementById('prev');
+  let backButton = document.getElementById('back');
+  let searchMoreButtons = document.querySelectorAll('.searchMore');
+  let carousel = document.querySelector('.carousel');
+  let listHTML = document.querySelector('.carousel .list');
 
-
-
-let nextButton = document.getElementById('next');
-let prevButton = document.getElementById('prev');
-let backButton = document.getElementById('back');
-let searchMoreButtons = document.querySelectorAll('.searchMore');
-let carousel = document.querySelector('.carousel');
-let listHTML = document.querySelector('.carousel .list');
-
-nextButton.onclick = function () {
-  showSlider('next');
-}
-
-prevButton.onclick = function () {
-  showSlider('prev');
-}
-
-let unAcceptClick;
-const showSlider = (type) => {
-  nextButton.style.pointerEvents = 'none';
-  prevButton.style.pointerEvents = 'none';
-  carousel.classList.remove('prev', 'next');
-
-  let items = document.querySelectorAll('.carousel .list .item');
-
-  if (type === 'next') {
-    listHTML.appendChild(items[0]);
-    carousel.classList.add('next');
-  } else {
-    listHTML.insertBefore(items[items.length - 1], items[0]);
-    carousel.classList.add('prev');
+  nextButton.onclick = function () {
+    showSlider('next');
   }
 
-  setTimeout(() => {
-    carousel.classList.remove('next', 'prev');
-  }, 1100);
-
-  clearTimeout(unAcceptClick);
-  unAcceptClick = setTimeout(() => {
-    nextButton.style.pointerEvents = 'auto';
-    prevButton.style.pointerEvents = 'auto';
-  }, 2000);
-}
-
-searchMoreButtons.forEach(button => {
-  button.onclick = function() {
-    carousel.classList.add('showDetail');
+  prevButton.onclick = function () {
+    showSlider('prev');
   }
+
+  let unAcceptClick;
+  const showSlider = (type) => {
+    nextButton.style.pointerEvents = 'none';
+    prevButton.style.pointerEvents = 'none';
+    carousel.classList.remove('prev', 'next');
+
+    let items = document.querySelectorAll('.carousel .list .item');
+
+    if (type === 'next') {
+      listHTML.appendChild(items[0]);
+      carousel.classList.add('next');
+    } else {
+      listHTML.insertBefore(items[items.length - 1], items[0]);
+      carousel.classList.add('prev');
+    }
+
+    setTimeout(() => {
+      carousel.classList.remove('next', 'prev');
+    }, 1100);
+
+    clearTimeout(unAcceptClick);
+    unAcceptClick = setTimeout(() => {
+      nextButton.style.pointerEvents = 'auto';
+      prevButton.style.pointerEvents = 'auto';
+    }, 2000);
+  }
+
+  searchMoreButtons.forEach(button => {
+    button.onclick = function() {
+      carousel.classList.add('showDetail');
+    }
+  });
+
+  backButton.onclick = function() {
+    carousel.classList.remove('showDetail');
+  }
+
+  // Initial call to render categories
+  renderCategories();
 });
-
-backButton.onclick = function() {
-  carousel.classList.remove('showDetail');
-}
-
-
-
-
-
-
-
