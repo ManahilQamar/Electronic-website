@@ -235,8 +235,8 @@
 
 
 
+<h1 class="popular-categories-h1">Popular Categories</h1>
 <div class="popular-categories">
-  <h1>Popular Categories</h1>
   <div id="categoryListWrapper">
     <div id="categoryList">
       <!-- Categories will be populated here -->
@@ -283,6 +283,31 @@
   </div>
 </div>
 
+<!-- reviews -->
+<div class="reviews-container">
+  <h2>Customer Reviews</h2>
+  <div class="add-review">
+    <h3>Add a Review</h3>
+    <input type="text" id="reviewer-name" placeholder="Your Name">
+    <textarea id="review-text" placeholder="Your Review"></textarea>
+    <div class="rating">
+      <span>Rate: </span>
+      <select id="review-rating">
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+      </select>
+    </div>
+    <button id="submit-review">Submit Review</button>
+  </div>
+  <div class="reviews-list" id="reviews-list">
+    <!-- Reviews will be populated here -->
+  </div>
+  <button id="show-all-reviews" class="show-all-reviews">Show All Reviews</button>
+
+</div>
 
 
 
@@ -328,8 +353,8 @@
     </div>
   </div>
 </footer>
-<!-- FontAwesome Script for Social Icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
 <div class="copyright">
   <p>Copy-Right 2024 Dry-Fruit</p>
 </div>

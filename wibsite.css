@@ -863,6 +863,9 @@ body.dark-mode {
   background-color: transparent;
   font-family: emoji;
 }
+.dark-mode .product-heading{
+  color: white;
+}
 
 
 
@@ -873,13 +876,21 @@ body.dark-mode {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   margin: 20px 0;
+  height: 240px;
+}
+.dark-mode .popular-categories{
+  background-color: #0b0b0b;
+  border: 1px solid #343232;
 }
 
-.popular-categories h1 {
+.popular-categories-h1 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
   font-family: emoji;
+}
+.dark-mode .popular-categories-h1{
+  color: white;
 }
 
 #category-list {
@@ -888,25 +899,8 @@ body.dark-mode {
   flex-wrap: wrap;
 }
 
-.category {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  width: 130px;
-}
-
-.category-image {
-  width: 100px; /* Set the desired width */
-  height: 100px; /* Set the desired height */
-  object-fit: cover; /* This ensures that the image covers the container without distortion */
-}
 
 
-.category-name {
-  font-size: 18px;
-  margin: 10px 0;
-}
 #categoryListWrapper {
   overflow: hidden;
   position: relative;
@@ -915,38 +909,86 @@ body.dark-mode {
 
 #categoryList {
   display: flex;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 3s ease-in-out;
 }
 
-.category {
-  flex: 0 0 150px;
-  margin: 10px;
-  text-align: center;
-}
-
-
-.carousel-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
 #prevCategoryBtn{
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   font-family: monospace;
-  font-size: large;
+  font-size: 26px;
   font-weight: bold;
-  border: 1px solid #555;
 }
 #nextCategoryBtn{
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   font-family: monospace;
-  font-size: large;
+  font-size: 26px;
   font-weight: bold;
-  border: 1px solid #555;
+}
+ #prevCategoryBtn:hover{
+  font-size: 30px;
+
+}
+#nextCategoryBtn:hover{
+  font-size: 30px;
+
+}
+
+.category {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  height: 150px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  flex: 0 0 150px;
+  margin: 6px;
+  text-align: center;
+}
+.dark-mode .category{
+  background-color: #000000;
+  color: white;
+
+}
+
+.category img {
+  max-width: 80%;
+  max-height: 60%;
+  object-fit: cover;
+}
+
+
+#categoryListWrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+
+/* carousel......... */
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.carousel-controls button {
+  background: none;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+.carousel-controls button:hover {
+  color: #000;
+}
+.dark-mode .carousel-controls button{
+  color: white;
 }
 
 
@@ -1375,14 +1417,172 @@ body.dark-mode {
   color: white;
 }
 
+/* reviews */
+
+
+.reviews-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 490px;
+}
+
+.reviews-container h2 {
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.reviews-container h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: #000000;
+  margin: 5px auto 0;
+  border-radius: 5px;
+}
+
+.add-review {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.add-review h3 {
+  position: relative;
+  bottom: 2rem;
+  color: #555;
+  font-size: 1rem;
+}
+
+.add-review input,
+.add-review textarea {
+  position: relative;
+  bottom: 2rem;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  transition: border 0.3s ease;
+}
+
+.add-review input:focus,
+.add-review textarea:focus {
+  border-color: #242424;
+}
+
+.add-review .rating {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.add-review button {
+  display: inline-block;
+  padding: 10px 10px;
+  position: relative;
+  bottom: 2.8rem;
+  left: 15rem;
+  background-color: #0a0a0a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-review button:hover {
+  background-color: #232323;
+}
+
+.reviews-list {
+  display: grid;
+  position: relative;
+  bottom: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.review-item {
+  background: linear-gradient(145deg, #f9f9f9, #e0e0e0);
+  border-radius: 15px;
+  box-shadow: 4px 4px 15px #ccc, -4px -4px 15px #fff;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.review-item:hover {
+  transform: scale(1.05);
+}
+
+.review-item h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.review-item .rating {
+  color: #FFD700;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.review-item p {
+  margin: 10px 0 0;
+  color: #555;
+  word-wrap: break-word;
+}
+
+.show-all-reviews {
+  display: block;
+  position: relative;
+  bottom: 1rem;
+  width: 100%;
+  padding: 10px;
+  background-color: #0f0f0f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.show-all-reviews:hover {
+  background-color: #131414;
+}
+
+
+
+
+
 
 
 
 /* footer */
 
+.dark-mode .footer{
+  box-shadow: 0 1px 10px rgba(246, 244, 244, 0.1);
 
+}
 .footer {
-  background: linear-gradient(to right, #0b0b0b, #1d1d1d);
+  background: linear-gradient(to right, #0b0b0b, #100f0f);
   color: #fff;
   text-align: left;
   position: relative;
@@ -1444,7 +1644,7 @@ body.dark-mode {
 
 .newsletter {
   background: #0b0b0b;
-  padding: 15px;
+  padding: 10px;
   border-radius: 10px;
   position: relative;
   bottom: 4rem;
@@ -1517,5 +1717,8 @@ font-size: 18px;
   text-align: center;
   position: relative;
   top: 1.2rem;
+}
+.dark-mode .copyright{
+  color: white;
 }
 

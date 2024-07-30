@@ -12,8 +12,52 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModal = document.querySelector('.close');
   const cartItemsContainer = document.getElementById('cart-items');
   const heartItemsContainer = document.getElementById('heart-items');
-  const categoryList = document.getElementById('category-list');
+  const categoryListWrapper = document.getElementById('categoryListWrapper');
+  const categoryList = document.getElementById('categoryList');
+  const prevCategoryBtn = document.getElementById('prevCategoryBtn');
+  const nextCategoryBtn = document.getElementById('nextCategoryBtn');
+  const categories = [
+    { id: 9, name: "Smartphone",  image: "iphone.jpg" },
+    { id: 8, name: "Watch", image: "wat.jpg" },
+    { id: 5, name: "TV", image: "bgTv.png" },
+    { id: 4, name: "Headphones", image: "bgHead.png" },
+    { id: 2, name: "Smartphone",  image: "ip.png" },
+    { id: 8, name: "Watch", image: "wath3.jpg" },
+    { id: 4, name: "Headphones", image: "head2.jpg" },
+    { id: 7, name: "Watch",  image: "wat2.png" },
+    { id: 1, name: "Laptop", image: "Apple.jpg" },
+    { id: 4, name: "Headphones", image: "head3.jpg" },
+    { id: 8, name: "Watch", image: "wath4.jpg" }
+   
+  ];
 
+  // Function to render categories
+  function renderCategories() {
+    categoryList.innerHTML = categories.map(category =>
+      `<div class="category" data-id="${category.id}">
+          <img src="${category.image}" alt="${category.name}">
+          <h3>${category.name}</h3>
+       </div>`
+    ).join('');
+  }
+
+  // Render categories on page load
+  renderCategories();
+
+  // Function to handle category carousel navigation
+  function showCategory(direction) {
+    const categories = document.querySelectorAll('#categoryList .category');
+    if (direction === 'next') {
+      categoryList.appendChild(categories[0]);
+    } else {
+      categoryList.insertBefore(categories[categories.length - 1], categories[0]);
+    }
+  }
+
+  nextCategoryBtn.addEventListener('click', () => showCategory('next'));
+  prevCategoryBtn.addEventListener('click', () => showCategory('prev'));
+
+  // Product list
   const products = [
     { id: 9, name: "Smartphone", price: 499, quantity: 10, category: "Electronics", image: "iphone.jpg" },
     { id: 8, name: "Watch", price: 999, quantity: 5, category: "Electronics", image: "wath4.jpg" },
@@ -52,71 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`
   ).join('');
 
-  const categories = [
-    { category: 'Laptops', image: 'laps1.jpg' },
-    { category: 'Tablets', image: 'laps.jpg' },
-    { category: 'Mobiles', image: 'jap1.jpg' },
-    { category: 'Computers', image: 'head4.jpg' },
-    { category: 'Printers', image: 'ips3.png' },
-    { category: 'Electronics', image: 'wath3.jpg' },
-    { category: 'Cameras', image: 'laps1.jpg' },
-    { category: 'Watches', image: 'laps.jpg' }
-  ];
-  
-  let currentIndex = 0;
-  const categoriesPerView = 4;
-  
-  const renderCategories = () => {
-    const categoryList = document.getElementById('categoryList');
-    categoryList.innerHTML = '';
-  
-    const uniqueCategories = [];
-    categories.forEach(product => {
-      if (!uniqueCategories.some(category => category.name === product.category)) {
-        uniqueCategories.push({ name: product.category, image: product.image });
-      }
-    });
-  
-    uniqueCategories.forEach(category => {
-      const categoryDiv = document.createElement('div');
-      categoryDiv.classList.add('category');
-  
-      categoryDiv.innerHTML = `
-        <img src="${category.image}" alt="${category.name}" class="category-image">
-        <h3 class="category-name">${category.name}</h3>
-      `;
-  
-      categoryList.appendChild(categoryDiv);
-    });
-  
-    updateCategoryView();
-  };
-  
-  const updateCategoryView = () => {
-    const categoryList = document.getElementById('categoryList');
-    const uniqueCategories = document.querySelectorAll('.category');
-    const maxIndex = uniqueCategories.length - categoriesPerView;
-  
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex > maxIndex) currentIndex = maxIndex;
-  
-    const offset = -currentIndex * (uniqueCategories[0].clientWidth + 20); // Adjust 20 if needed for margin/padding
-    categoryList.style.transform = `translateX(${offset}px)`;
-  };
-  
-  document.getElementById('prevCategoryBtn').addEventListener('click', () => {
-    currentIndex--;
-    updateCategoryView();
-  });
-  
-  document.getElementById('nextCategoryBtn').addEventListener('click', () => {
-    currentIndex++;
-    updateCategoryView();
-  });
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    renderCategories();
-  });
   
   let cart = [];
   let likedItems = [];
@@ -217,17 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target.classList.contains('add-to-heart')) {
       const productId = parseInt(event.target.dataset.id);
       const product = products.find(p => p.id === productId);
-      const heartIcon = event.target;
+      const heartItem = likedItems.find(item => item.id === productId);
 
-      if (likedItems.some(item => item.id === productId)) {
-        likedItems = likedItems.filter(item => item.id !== productId);
-        heartIcon.classList.remove('liked');
-      } else {
+      if (!heartItem) {
         likedItems.push(product);
-        heartIcon.classList.add('liked');
       }
       updateHeartCount();
-      updateHeartModal();
     }
 
     if (event.target.classList.contains('remove-from-heart')) {
@@ -356,7 +330,89 @@ document.addEventListener('DOMContentLoaded', () => {
   backButton.onclick = function() {
     carousel.classList.remove('showDetail');
   }
-
-  // Initial call to render categories
-  renderCategories();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const reviewsList = document.getElementById('reviews-list');
+  const submitReviewButton = document.getElementById('submit-review');
+  const showAllReviewsButton = document.getElementById('show-all-reviews');
+
+  let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+  function saveReviews() {
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+  }
+
+  function renderReviews() {
+    reviewsList.innerHTML = '';
+    const visibleReviews = reviews.slice(0, 3);
+    visibleReviews.forEach(review => {
+      const reviewItem = document.createElement('div');
+      reviewItem.classList.add('review-item');
+      reviewItem.innerHTML = `
+        <h4>${review.name}</h4>
+        <div class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+        <p>${review.text}</p>
+      `;
+      reviewsList.appendChild(reviewItem);
+    });
+  }
+
+  submitReviewButton.addEventListener('click', () => {
+    const reviewerName = document.getElementById('reviewer-name').value;
+    const reviewText = document.getElementById('review-text').value;
+    const reviewRating = document.getElementById('review-rating').value;
+
+    if (reviewerName && reviewText && reviewRating) {
+      reviews.unshift({
+        name: reviewerName,
+        text: reviewText,
+        rating: parseInt(reviewRating)
+      });
+      saveReviews();
+      renderReviews();
+
+      // Clear input fields
+      document.getElementById('reviewer-name').value = '';
+      document.getElementById('review-text').value = '';
+      document.getElementById('review-rating').value = '5';
+    } else {
+      alert('Please fill out all fields before submitting your review.');
+    }
+  });
+
+  showAllReviewsButton.addEventListener('click', () => {
+    const allReviewsPage = window.open('', '_blank');
+    allReviewsPage.document.write('<html><head><title>All Reviews</title><style>');
+    allReviewsPage.document.write(`
+      body { font-family: 'Poppins', sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+      .all-reviews-container { max-width: 800px; margin: 50px auto; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
+      .all-reviews-container h1 { text-align: center; color: #333; margin-bottom: 30px; font-size: 2rem; font-weight: 700; position: relative; }
+      .all-reviews-container h1::after { content: ''; display: block; width: 80px; height: 3px; background: #007bff; margin: 10px auto 0; border-radius: 5px; }
+      .review-item { background: linear-gradient(145deg, #f9f9f9, #e0e0e0); border-radius: 15px; box-shadow: 4px 4px 15px #ccc, -4px -4px 15px #fff; padding: 20px; margin-bottom: 20px; }
+      .review-item h4 { margin: 0 0 10px 0; color: #333; font-size: 1.25rem; font-weight: 600; }
+      .review-item .rating { color: #FFD700; font-size: 1.2rem; margin-bottom: 10px; }
+      .review-item p { margin: 10px 0 0; color: #555; word-wrap: break-word; }
+    `);
+    allReviewsPage.document.write('</style></head><body>');
+    allReviewsPage.document.write('<div class="all-reviews-container">');
+    allReviewsPage.document.write('<h1>All Reviews</h1>');
+
+    reviews.forEach(review => {
+      allReviewsPage.document.write(`
+        <div class="review-item">
+          <h4>${review.name}</h4>
+          <div class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+          <p>${review.text}</p>
+        </div>
+      `);
+    });
+
+    allReviewsPage.document.write('</div></body></html>');
+    allReviewsPage.document.close();
+  });
+
+  renderReviews();
+});
+
+
